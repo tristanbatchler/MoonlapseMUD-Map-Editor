@@ -1,3 +1,12 @@
+function componentToHex(c) {
+  var hex = c.toString(16);
+  return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
 (function () {
   var ns = $.namespace('pskl.controller');
 
@@ -57,10 +66,37 @@
       var html = colors.filter(function (color) {
         return !!color;
       }).map(function (color, index) {
+
+        tooltip = ''
+        if (color == rgbToHex(0, 0, 0)) {
+          tooltip = 'STONE';
+        }
+        else if (color == rgbToHex(0, 0, 255)) {
+          tooltip = 'WATER';
+        }
+        else if (color == rgbToHex(0, 70, 0)) {
+          tooltip = 'LEAF';
+        }
+        else if (color == rgbToHex(0, 140, 0)) {
+          tooltip = 'GRASS';
+        }
+        else if (color == rgbToHex(85, 70, 0)) {
+          tooltip = 'WOOD';
+        }
+        else if (color == rgbToHex(170, 140, 0)) {
+          tooltip = 'SAND';
+        }
+        else if (color == rgbToHex(255, 0, 255)) {
+          tooltip = 'NOTHING';
+        }
+        else if (color == rgbToHex(191, 191, 191)) {
+          tooltip = 'COBBLESTONE';
+        }
+
         return pskl.utils.Template.replace(this.paletteColorTemplate_, {
           color : color,
           index : index + 1,
-          title : color.toUpperCase()
+          title : tooltip
         });
       }.bind(this)).join('');
       this.colorListContainer_.innerHTML = html;
@@ -94,7 +130,8 @@
   };
 
   ns.PalettesListController.prototype.getSelectedPalette_ = function () {
-    var paletteId = pskl.UserSettings.get(pskl.UserSettings.SELECTED_PALETTE);
+    //var paletteId = pskl.UserSettings.get(pskl.UserSettings.SELECTED_PALETTE);
+    var paletteId = 'monlapse';
     return this.paletteService.getPaletteById(paletteId);
   };
 

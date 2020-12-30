@@ -76,6 +76,10 @@
   position: relative;
 }
 
+.palettes-list-color[title=""] {
+  visibility: hidden;
+}
+
 .palettes-list-colors.tiny > .palettes-list-color {
   width: calc((100% - 35px) / 10);
   height: 16px;

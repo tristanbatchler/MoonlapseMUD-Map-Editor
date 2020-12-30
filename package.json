@@ -72,6 +72,7 @@
     "height": 700
   },
   "dependencies": {
+    "casperjs": "^1.1.1",
     "minimist": "^1.2.0"
   }
 }
